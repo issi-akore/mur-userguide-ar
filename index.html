@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FTPLUS: Arkansas State Tax Filing Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        .container {
+            display: flex;
+            max-width: 1400px;
+            margin: 0 auto;
+            min-height: calc(100vh - 120px);
+        }
+
+        .sidebar {
+            width: 280px;
+            background: #fff;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .toc {
+            padding: 2rem 1.5rem;
+        }
+
+        .toc h2 {
+            color: #667eea;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 0.5rem;
+        }
+
+        .toc ul {
+            list-style: none;
+        }
+
+        .toc li {
+            margin-bottom: 0.5rem;
+        }
+
+        .toc a {
+            color: #555;
+            text-decoration: none;
+            padding: 0.5rem 0.75rem;
+            border-radius: 5px;
+            display: block;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .toc a:hover {
+            background-color: #f0f2ff;
+            color: #667eea;
+            transform: translateX(5px);
+        }
+
+        .toc .sub-item {
+            padding-left: 1rem;
+            font-size: 0.85rem;
+        }
+
+        .content {
+            flex: 1;
+            padding: 2rem;
+            background: #fff;
+            margin: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .section {
+            margin-bottom: 3rem;
+            scroll-margin-top: 2rem;
+        }
+
+        .section h2 {
+            color: #667eea;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid #e9ecef;
+        }
+
+        .section h3 {
+            color: #764ba2;
+            font-size: 1.4rem;
+            margin: 1.5rem 0 1rem 0;
+        }
+
+        .section h4 {
+            color: #667eea;
+            font-size: 1.2rem;
+            margin: 1rem 0 0.5rem 0;
+        }
+
+        .section p {
+            margin-bottom: 1rem;
+            color: #555;
+            line-height: 1.8;
+        }
+
+        .section ul, .section ol {
+            margin: 1rem 0 1rem 2rem;
+            color: #555;
+        }
+
+        .section li {
+            margin-bottom: 0.5rem;
+            line-height: 1.6;
+        }
+
+        .image-container {
+            margin: 1.5rem 0;
+            text-align: center;
+        }
+
+        .image-placeholder {
+            background: #f8f9fa;
+            border: 2px dashed #dee2e6;
+            border-radius: 8px;
+            padding: 2rem;
+            color: #6c757d;
+            font-style: italic;
+            margin: 1.5rem 0;
+        }
+
+        .highlight-box {
+            background: #f8f9ff;
+            border-left: 4px solid #667eea;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .highlight-box h4 {
+            color: #667eea;
+            margin-bottom: 0.5rem;
+        }
+
+        .warning-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .warning-box h4 {
+            color: #856404;
+            margin-bottom: 0.5rem;
+        }
+
+        .error-box {
+            background: #f8d7da;
+            border-left: 4px solid #dc3545;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .error-box h4 {
+            color: #721c24;
+            margin-bottom: 0.5rem;
+        }
+
+        .step-number {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 25px;
+            margin-right: 0.5rem;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        .footer {
+            background: #667eea;
+            color: white;
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+            
+            .content {
+                margin: 1rem;
+                padding: 1rem;
+            }
+            
+            .header h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1>FTPLUS: Arkansas State Tax Filing Guide</h1>
+        <p style="margin-top: 0.5rem; font-size: 1.1rem; opacity: 0.9;">Complete User Guide</p>
+    </header>
+
+    <div class="container">
+        <nav class="sidebar">
+            <div class="toc">
+                <h2>Table of Contents</h2>
+                <ul>
+                    <li><a href="#source-data">1. Source Data</a></li>
+                    <li class="sub-item"><a href="#source-navigation">Source Data Navigation</a></li>
+                    <li class="sub-item"><a href="#data-review">Data Review and Confirmation</a></li>
+                    <li><a href="#matrix-tool">2. Matrix Tool</a></li>
+                    <li class="sub-item"><a href="#operating-matrix">Operating the Matrix Tool</a></li>
+                    <li><a href="#error-management">3. Error Management</a></li>
+                    <li class="sub-item"><a href="#accessing-error">Accessing Error Management</a></li>
+                    <li class="sub-item"><a href="#reviewing-errors">Reviewing Errors and Warnings</a></li>
+                    <li class="sub-item"><a href="#correcting-errors">Correcting Errors</a></li>
+                    <li class="sub-item"><a href="#mass-edit">Using Mass Edit Tool</a></li>
+                    <li><a href="#returns-data">4. Returns Data</a></li>
+                    <li class="sub-item"><a href="#working-returns">Working with Returns Data</a></li>
+                    <li class="sub-item"><a href="#data-validation">Data Validation</a></li>
+                    <li class="sub-item"><a href="#copying-data">Copying Returns Data</a></li>
+                    <li class="sub-item"><a href="#moving-data">Moving Returns Data</a></li>
+                    <li class="sub-item"><a href="#custom-layouts">User Defined Layouts</a></li>
+                    <li><a href="#dashboard">5. Dashboard</a></li>
+                    <li class="sub-item"><a href="#dashboard-navigation">Navigating to the Dashboard</a></li>
+                    <li class="sub-item"><a href="#overview-tab">Overview Tab</a></li>
+                    <li class="sub-item"><a href="#manage-inventory">Manage Inventory Tab</a></li>
+                    <li class="sub-item"><a href="#tax-rates">Active TaxRates Tab</a></li>
+                    <li class="sub-item"><a href="#payments">Payments Tab</a></li>
+                    <li><a href="#tax-filing">6. Tax Filing</a></li>
+                    <li class="sub-item"><a href="#generate-reports">Generate Original Return Reports</a></li>
+                    <!-- <li><a href="#amended-process">7. Amended Process</a></li>
+                    <li class="sub-item"><a href="#creating-amended">Creating an Amended Filing</a></li>
+                    <li class="sub-item"><a href="#copying-amended">Copying Original Returns Data</a></li>
+                    <li class="sub-item"><a href="#amended-dashboard">Amended Dashboard</a></li>
+                    <li class="sub-item"><a href="#amended-reports">Amended Schedules Report</a></li> -->
+                </ul>
+            </div>
+        </nav>
+
+        <main class="content">
+            <section id="source-data" class="section">
+                <h2>1. Source Data</h2>
+                <p>Source Data contains the transactional data as it was loaded into the AKORE system. No schedule codes or return types are included in this data. Also, any product codes may not be in the state preferred format and could be changed when the Compliance Matrix is run.</p>
+                
+                <div class="highlight-box">
+                    <h4>Important Note</h4>
+                    <p>The Error Management tool at this stage is done on ALL Source data records, regardless of the State for which you are logged in. (See Error Management section for details.)</p>
+                </div>
+
+                <h3 id="source-navigation">1.1 Source Data Navigation</h3>
+                <ul>
+                    <li>Select the State module → Choose a State</li>
+                    <li>Click on the Source Data tab, then select BOL Transactions → Search & Edit</li>
+                </ul>
+
+                <div class="image-placeholder">
+                    <p>Screenshot: State module selection and Source Data navigation</p>
+                </div>
+
+                <h3 id="data-review">1.2 Data Review and Confirmation</h3>
+                <ul>
+                    <li>Review displayed Company Code, Month, Year, Product Code and Mode Code and select 'OK'</li>
+                    <li>Review total Number of Records Successfully Retrieved for the given state and select 'OK'</li>
+                </ul>
+
+                <div class="highlight-box">
+                    <h4>Note</h4>
+                    <p>The Total Records count will be continually displayed at the bottom of your screen.</p>
+                </div>
+
+                <div class="image-placeholder">
+                    <p>Screenshot: Data review confirmation dialog</p>
+                </div>
+            </section>
+
+            <section id="matrix-tool" class="section">
+                <h2>2. Matrix Tool</h2>
+                <p>The Matrix Tool runs the Compliance Matrix which is used to apply schedule and return types to the imported Source Data. This is also where any state-specific translations are accomplished (Product Codes, Mode Codes, etc.). After the Matrix rules have been applied to the Source Data, the data gets stored as Returns Data.</p>
+
+                <div class="warning-box">
+                    <h4>Important Warning</h4>
+                    <p>The matrix has been set up for you by AKORE. DO NOT attempt to modify any of the rules until you are thoroughly familiarized with the process.</p>
+                </div>
+
+                <h3 id="operating-matrix">2.1 Operating the Matrix Tool</h3>
+                <ul>
+                    <li>Click on the Matrix Tool tab → Run the Matrix Tool</li>
+                    <li>Choose from two execution options:
+                        <ul>
+                            <li><strong>Start</strong> - Run the Matrix Tool immediately</li>
+                            <li><strong>Schedule</strong> - Set the Matrix Tool to run at a specific date/time</li>
+                        </ul>
+                    </li>
+                    <li>After running the Matrix Tool, click Close</li>
+                </ul>
+
+                <div class="image-placeholder">
+                    <p>Screenshot: Matrix Tool interface with Start and Schedule options</p>
+                </div>
+
+                <div class="highlight-box">
+                    <h4>Note</h4>
+                    <p>The Error Management tool runs automatically as part of the Matrix process to validate your data. If there are any errors or warnings, they will be displayed immediately after the Matrix Tool completes its processing.</p>
+                </div>
+            </section>
+
+            <section id="error-management" class="section">
+                <h2>3. Error Management</h2>
+                <p>The Error Management component identifies and helps resolve issues in your tax data before submission to ensure accuracy and compliance. This tool is critical for maintaining data integrity and preventing filing errors.</p>
+
+                <h3 id="accessing-error">3.1 Accessing Error Management</h3>
+                <p>Error Management can be accessed in two ways:</p>
+                <ul>
+                    <li>As part of the Matrix process (runs automatically when the Matrix Tool is executed)</li>
+                    <li>Directly through the Error Management tab</li>
+                </ul>
+
+                <div class="error-box">
+                    <h4>Important</h4>
+                    <p>When accessing Error Management from the Source Data menu, it will check ALL Source data records, regardless of the State you are logged into. When accessing from the Returns Data menu, it will only check data for the current state.</p>
+                </div>
+
+                <div class="image-placeholder">
+                    <p>Screenshot: Error Management tab location</p>
+                </div>
+
+                <h3 id="reviewing-errors">3.2 Reviewing Errors and Warnings</h3>
+                <p>After the Matrix process runs or when you manually launch Error Management, a summary window will appear showing any errors or warnings detected in your data:</p>
+
+                <ul>
+                    <li><strong>Errors</strong> are displayed in RED and must be corrected before filing</li>
+                    <li><strong>Warnings</strong> are displayed in YELLOW and can be addressed but are not blocking issues</li>
+                </ul>
+
+                <p>The summary window provides the following information:</p>
+                <ul>
+                    <li>Error/warning type (e.g., "MISSING/BLANK CARRIER FEIN")</li>
+                    <li>Count of records with the specific issue</li>
+                    <li>Severity level (Error or Warning)</li>
+                </ul>
+
+                <div class="image-placeholder">
+                    <p>Screenshot: Error Management summary window showing errors in red and warnings in yellow</p>
+                </div>
+
+                <h3 id="correcting-errors">3.3 Correcting Errors</h3>
+                <p>To address specific errors or warnings:</p>
+                <ol>
+                    <li>Double-click on any error or warning in the summary window</li>
+                    <li>A new window will open displaying all records with that specific issue</li>
+                    <li>Navigate to the relevant field(s) that need correction</li>
+                    <li>Make your changes by selecting from dropdown menus or entering data directly</li>
+                    <li>Click "Save" in the toolbar to preserve your changes</li>
+                </ol>
+
+                <p>You can correct records one at a time, or use the Mass Edit tool for multiple similar corrections.</p>
+
+                <div class="image-placeholder">
+                    <p>Screenshot: Error correction interface with Save button highlighted</p>
+                </div>
+
+                <h4 id="mass-edit">3.3.1 Using Mass Edit Tool</h4>
+                <p>The Mass Edit tool is efficient for correcting multiple records that need the same information:</p>
+                <ol>
+                    <li>RIGHT-CLICK (or SHIFT+RIGHT CLICK) on the column header for the field you want to change</li>
+                    <li>A dropdown menu will appear with available options</li>
+                    <li>Select the correct value from the dropdown list</li>
+                    <li>Confirm the operation when prompted</li>
+                    <li>Save your changes when complete</li>
+                </ol>
+
+                <div class="image-placeholder">
+                    <p>Screenshot: Mass Edit dropdown menu interface</p>
+                </div>
+
+                <div class="warning-box">
+                    <h4>Important</h4>
+                    <p>When using Mass Edit to update fields like Carrier Name, related fields (such as Carrier FEIN) may need to be updated separately. Unlike individual record updates, Mass Edit doesn't automatically populate related fields.</p>
+                </div>
+
+                <p>After correcting all errors, you should run Error Management again to confirm that all issues have been resolved before proceeding with your filing.</p>
+
+                <div class="image-placeholder">
+                    <p>Screenshot: Error Management validation confirmation</p>
+                </div>
+            </section>
+
+            <section id="returns-data" class="section">
+                <h2>4. Returns Data</h2>
+                <p>The Returns Data component manages the processed information that will appear on your tax returns. The Returns Data screen is useful in analyzing, editing, and making manual corrections to data.</p>
+
+                <h3 id="working-returns">4.1 Working with Returns Data</h3>
+                <ul>
+                    <li>Click on Returns Data tab → Original Schedules</li>
+                    <li>Manually enter data by clicking on the insert icon</li>
+                    <li>Use Export to save data for external analysis</li>
+                    <li>Utilize On Demand Validation to verify data integrity</li>
+                </ul>
+
+                <div class="image-placeholder">
+                    <p>Screenshot: Returns Data interface with Original Schedules tab</p>
+                </div>
+
+                <h3 id="data-validation">4.2 Data Validation</h3>
+                <p>Returns Data can be validated for missing data and bad data by clicking on the 'Validate' Toolbar button. This launches the validation routine which will check every Returns Data record for the pre-defined error conditions and report those transactions that fail to pass the check for errors.</p>
+                <ol>
+                    <li>Click on the Validate button</li>
+                    <li>Click Close after it has completed</li>
+                </ol>
+
+                <h3 id="copying-data">4.3 Copying Returns Data</h3>
+                <p>Returns Data can be copied from one month and year to another month and year, to another state and/or to an original or amended schedule by clicking on the 'Copy' button in the toolbar.</p>
+                <ol>
+                    <li>Use 'SHIFT+CLICK' on the Returns Data rows to multi-select the rows you want to copy</li>
+                    <li>Click on the 'Copy' button in the toolbar</li>
+                    <li>In the popup window that appears, select from the available options:
+                        <ul>
+                            <li>Destination Month and Year</li>
+                            <li>Destination State (if applicable)</li>
+                            <li>Destination Schedule Table</li>
+                        </ul>
+                    </li>
+                    <li>Click the 'OK' button at the bottom to complete the copy process</li>
+                </ol>
+
+                <div class="image-placeholder">
+                    <p>Screenshot: Copy function dialog with destination options</p>
+                </div>
+
+                <div class="highlight-box">
+                    <h4>Note</h4>
+                    <p>When using the Copy function, the selected data will be duplicated in the destination location while remaining in the original location as well.</p>
+                </div>
+
+                <h3 id="moving-data">4.4 Moving Returns Data</h3>
+                <p>Returns Data can be moved from one month and year to another month and year, to another state and/or to an amended schedule by clicking on the 'Move' button in the toolbar.</p>
+                <ol>
+                    <li>Use 'SHIFT+CLICK' on the Returns Data rows to multi-select the rows you want to move</li>
+                    <li>Click on the 'Move' button in the toolbar</li>
+                    <li>In the popup window, select from the available options:
+                        <ul>
+                            <li>Destination Month and Year</li>
+                            <li>Destination State (if applicable)</li>
+                            <li>Destination Schedule Table</li>
+                        </ul>
+                    </li>
+                    <li>Click the 'OK' button at the bottom to complete the move process</li>
+                </ol>
+
+                <div class="image-placeholder">
+                    <p>Screenshot: Move function dialog with destination options</p>
+                </div>
+
+                <div class="error-box">
+                    <h4>Important</h4>
+                    <p>When using the Move function, the selected rows are deleted from the current month and year and copied to the selected destination. This action cannot be undone, so be certain before proceeding.</p>
+                </div>
+
+                <h3 id="custom-layouts">4.5 User Defined Layouts (Custom Returns Data Layout)</h3>
+                <p>Users can create, name and save custom layouts to better view and work with Returns Data:</p>
+                <ol>
+                    <li>Click on the 'Layouts' button in the Toolbar</li>
+                    <li>Select an existing Layout or click the 'Manage' button to launch the layout wizard</li>
+                    <li>Click New</li>
+                    <li>Arrange the Selected Columns (right table) in your preferred order by using the buttons, or add an Available Column (left table) by double clicking it</li>
+                    <li>Name and save the custom layout</li>
+                    <li>Your saved layout will be available for future use</li>
+                </ol>
+
+                <div class="image-placeholder">
+                    <p>Screenshot: Layout management interface with column selection</p>
+                </div>
+            </section>
+
+            <section id="dashboard" class="section">
+                <h2>5. Dashboard</h2>
+                <p>The Dashboard provides analytical tools and overview capabilities to monitor and manage your tax data.</p>
+
+                <h3 id="dashboard-navigation">5.1 Navigating to the Dashboard</h3>
+                <ul>
+                    <li>Click on Dashboard tab</li>
+                    <li>Click on Original Tax Returns</li>
+                </ul>
+
+                <div class="image-placeholder">
+                    <p>Screenshot: Dashboard navigation with Original Tax Returns option</p>
+                </div>
+
+                <h3 id="overview-tab">5.2 Overview Tab</h3>
+                <ol>
+                    <li>Select a return from the Tax Return Type drop-down menu</li>
+                    <li>Click Calculate to process the tax calculations, then select Yes to confirm process</li>
+                    <li>Click View/Edit to view and edit the data (yellow indicates editable fields) then click Save to recalculate</li>
+                </ol>
+
+                <div class="image-placeholder">
+                    <p>Screenshot: Overview tab with Tax Return Type dropdown and Calculate button</p>
+                </div>
+
+                <h3 id="manage-inventory">5.3 Manage Inventory Tab</h3>
+                <ul>
+                    <li>Click on Manage Inventory tab</li>
+                    <li>Review or modify the physical inventory by right-clicking, then selecting an option from the action menu</li>
+                    <li>Add Inventory Record, Delete Inventory Record, Save Inventory, Refresh, or Calculate</li>
+                    <li>If any changes were made to the inventory, return to the Overview tab and calculate the return again</li>
+                </ul>
+
+                <div class="image-placeholder">
+                    <p>Screenshot: Manage Inventory tab with right-click context menu</p>
+                </div>
+
+                <h3 id="tax-rates">5.4 Active TaxRates Tab</h3>
+                <p>View the active tax rates that are applicable to the selected return.</p>
+
+                <div class="image-placeholder">
+                    <p>Screenshot: Active TaxRates tab showing current rates</p>
+                </div>
+
+                <h3 id="payments">5.5 Payments Tab</h3>
+                <p>View the total payments that are applicable to the selected return.</p>
+
+                <div class="image-placeholder">
+                    <p>Screenshot: Payments tab showing total payments</p>
+                </div>
+            </section>
+
+            <section id="tax-filing" class="section">
+                <h2>6. Tax Filing</h2>
+                <p>The Tax Filing component is where you generate and submit your final tax returns to the state tax authorities.</p>
+
+                <h3 id="generate-reports">6.1 Generate XML Files for Electronic Filing</h3>
+                <p>To generate XML files for electronic tax filing submission:</p>
+                <ol>
+                    <li>Navigate to the TaxFile menu at the top of the application</li>
+                    <li>Select Electronic XML Generator from the menu</li>
+                    <img src="./assets/esg_xml_menu.png" alt="TaxFile Menu Screenshot" style="width:100%; max-width:600px; margin:1rem 0;">
+                    <li>In the Arkansas Electronic Schedule Generator window, verify the Company/Version Information:
+                        <ul>
+                            <li>Company Name</li>
+                            <li>Period (Year and Month)</li>
+                            <li>State (Arkansas)</li>
+                        </ul>
+                    </li>
+                    <li>Select the File Location/Name, ensuring that the location is set to your T: drive</li>
+                    <li>Configure the File Generation Options:
+                        <ul>
+                            <li>Set Test/Production mode as appropriate</li>
+                            <li>Select Return Type (Original or Amended)</li>
+                            <li>Choose Single/Combined filing option</li>
+                            <div class="highlight-box">
+                                <h4>Note</h4>
+                                <p>If only one tax return is selected, the default filing option is Single. If multiple returns are selected and should be generated altogether, the Combined option will become available.</p>
+                            </div>
+                        </ul>
+                    </li>
+                    <li>Select the appropriate tax forms from the list (e.g., AMFT-22 for Gasoline Importer)</li>
+                    <li>Click the "Generate File" button to create the XML file</li>
+                    <img src="./assets/esg_xml_interface.png" alt="Generate File Interface Screenshot" style="width:100%; max-width:600px; margin:1rem 0;">
+                    <li>Once generated, you can proceed to download the file locally</li>
+                </ol>
+
+                <!-- <div class="image-placeholder">
+                    <p>Screenshot: Arkansas Electronic Schedule Generator interface with Generate File button highlighted</p>
+                </div> -->
+
+                <div class="highlight-box">
+                    <h4>Note</h4>
+                    <p>The Electronic XML Generator creates files in the state-required XML format for electronic submission to Arkansas tax authorities. Ensure all data validation has been completed before generating the final XML file.</p>
+                </div>
+            </section>
+
+            <!-- <section id="amended-process" class="section">
+                <h2>7. Amended Process</h2>
+                <p>The Amended Dashboard allows you to create and manage amended tax filings.</p>
+
+                <h3 id="creating-amended">7.1 Creating an Amended Filing</h3>
+                <ol>
+                    <li>Click on the Amended tab</li>
+                    <li>Select Create Amended Filing</li>
+                    <li>Select a Tax Return Type from the dropdown menu</li>
+                    <li>Click Create Now</li>
+                    <li>Select Yes when prompted to confirm</li>
+                    <li>After successfully creating an Amended Filing, click Close</li>
+                </ol>
+
+                <div class="image-placeholder">
+                    <p>Screenshot: Amended tab with Create Amended Filing option</p>
+                </div>
+
+                <h3 id="copying-amended">7.2 Copying Original Returns Data Into An Amended Filing</h3>
+                <ol>
+                    <li>Click on the Returns Data tab → Original Schedules</li>
+                    <li>Use 'SHIFT+CLICK' on the Returns Data rows to multi-select the rows you want to copy</li>
+                    <li>Click on the 'Copy' button in the toolbar</li>
+                    <li>In the popup window that appears, select from the available options:
+                        <ul>
+                            <li>Destination Month and Year</li>
+                            <li>Destination State (if applicable)</li>
+                            <li>Destination Schedule Table (AMENDED)</li>
+                        </ul>
+                    </li>
+                    <li>Click the 'OK' button at the bottom to complete the copy process</li>
+                </ol>
+
+                <div class="image-placeholder">
+                    <p>Screenshot: Copy dialog with AMENDED destination schedule table selected</p>
+                </div>
+
+                <div class="highlight-box">
+                    <h4>Note</h4>
+                    <p>When using the Copy function, the selected data will be duplicated in the destination location while remaining in the original location as well.</p>
+                </div>
+
+                <h3 id="amended-dashboard">7.3 Amended Dashboard</h3>
+                <p>The Amended Dashboard has the same functionality and layout as the Original Dashboard, including the Overview, Manage Inventory, Active TaxRates, and Payments Tabs.</p>
+                <ol>
+                    <li>Click on the Amended tab → Amended Dashboard</li>
+                    <li>Select a return from the Tax Return Type drop-down menu</li>
+                    <li>Select an Amended Filing from the Amended Filing drop-down menu</li>
+                </ol>
+
+                <p>Now you can calculate and view/edit the amended return as you would an original return.</p>
+
+                <div class="image-placeholder">
+                    <p>Screenshot: Amended Dashboard with Tax Return Type and Amended Filing dropdowns</p>
+                </div>
+
+                <h3 id="amended-reports">7.4 Amended Schedules Report</h3>
+                <p>To generate amended schedule reports:</p>
+                <ol>
+                    <li>Click on the Amended tab → Select Amended Dashboard</li>
+                    <li>Click Generate PDF</li>
+                    <li>Save the generated file to your desired location</li>
+                </ol>
+
+                <div class="image-placeholder">
+                    <p>Screenshot: Amended Dashboard with Generate PDF button</p>
+                </div>
+            </section> -->
+        </main>
+    </div>
+
+    <div class="footer">
+        <p>FTPLUS: Arkansas Tax Filing Guide | Last Updated: August 18, 2025</p>
+        <p>For questions or support, contact support@akore.com</p>
+    </div>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('.toc a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Highlight active section in navigation
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('.section');
+            const navLinks = document.querySelectorAll('.toc a');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.style.backgroundColor = '';
+                link.style.color = '#555';
+                if (link.getAttribute('href').substring(1) === current) {
+                    link.style.backgroundColor = '#f0f2ff';
+                    link.style.color = '#667eea';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
